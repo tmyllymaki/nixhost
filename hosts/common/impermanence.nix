@@ -14,6 +14,7 @@
       "/var/lib/systemd/coredump"
       "/var/log" 
       "/srv" 
+      "/root/.ssh" 
     ];
     files = [
       "/etc/machine-id"
