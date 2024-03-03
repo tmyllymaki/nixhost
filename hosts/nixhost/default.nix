@@ -46,6 +46,7 @@ in {
   environment.defaultPackages = lib.mkForce [ ];
   environment.systemPackages = with pkgs; [ 
     vim
+    git
   ];
 
   nix.settings.allowed-users = [ "root" ];
