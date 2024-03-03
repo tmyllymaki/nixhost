@@ -1,0 +1,11 @@
+keys:
+  - &nixhost age16055at26p4p38npeusc94ec0k804ra2uqqnpxvsyjadh6rtsfa9q5gnngv
+creation_rules:
+  - path_regex: hosts/nixhost/secrets.yaml$
+    key_groups:
+    - age:
+      - *nixhost
+  - path_regex: hosts/common/secrets.yaml$
+    key_groups:
+    - age:
+      - *nixhost
