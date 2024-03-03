@@ -1,11 +1,13 @@
-{ config, lib, pkgs, ... }:
-
-let
-  fetchKeys = username:
-    (builtins.fetchurl {
-      url = "https://github.com/${username}.keys";
-      sha256 = "0d228c4vzbx4s6jp5si9c1zqcjmncs0qqjc7hl6s6mfk9nilkkx6";
-    });
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  fetchKeys = username: (builtins.fetchurl {
+    url = "https://github.com/${username}.keys";
+    sha256 = "0d228c4vzbx4s6jp5si9c1zqcjmncs0qqjc7hl6s6mfk9nilkkx6";
+  });
 in {
   imports = [
     ../common
@@ -19,12 +21,11 @@ in {
 
   nixpkgs.config.allowUnfree = true;
 
-
   networking.hostName = "nix";
   networking.firewall.enable = false;
   time.timeZone = "Europe/Helsinki";
 
-  users.users.root.openssh.authorizedKeys.keyFiles = [ (fetchKeys "tmyllymaki") ];
+  users.users.root.openssh.authorizedKeys.keyFiles = [(fetchKeys "tmyllymaki")];
 
   services.openssh = {
     enable = true;
@@ -43,13 +44,13 @@ in {
   users.mutableUsers = false;
   security.sudo.execWheelOnly = true;
 
-  environment.defaultPackages = lib.mkForce [ ];
-  environment.systemPackages = with pkgs; [ 
+  environment.defaultPackages = lib.mkForce [];
+  environment.systemPackages = with pkgs; [
     vim
     git
   ];
 
-  nix.settings.allowed-users = [ "root" ];
+  nix.settings.allowed-users = ["root"];
 
   # Make vscode remote ssh work
   programs.nix-ld.enable = true;
@@ -64,7 +65,7 @@ in {
       done
     '';
   };
-  
+
   virtualisation = {
     docker = {
       enable = true;
@@ -75,7 +76,7 @@ in {
     };
   };
 
-/* 
+  /*
   services.paperless = {
     enable = true;
     address = "0.0.0.0";
@@ -87,6 +88,6 @@ in {
       PAPERLESS_AUTO_LOGIN_USERNAME = "admin";
       PAPERLESS_ADMIN_PASSWORD = "admin";
     };
-  }; */
-
+  };
+  */
 }

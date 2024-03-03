@@ -1,8 +1,4 @@
-{
-  lib,
-  inputs,
-  ...
-}: {
+{inputs, ...}: {
   imports = [
     inputs.impermanence.nixosModule
   ];
@@ -12,9 +8,9 @@
       "/etc/nixos"
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
-      "/var/log" 
-      "/srv" 
-      "/root/.ssh" 
+      "/var/log"
+      "/srv"
+      "/root/.ssh"
     ];
     files = [
       "/etc/machine-id"

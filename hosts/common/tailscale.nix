@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  outputs,
-  ...
-}: {
+{outputs, ...}: {
   imports = [outputs.nixosModules.tailscale-autoconnect];
 
   services.tailscaleAutoconnect = {

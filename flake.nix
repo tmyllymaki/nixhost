@@ -32,7 +32,6 @@
           ./hosts/${host}
         ];
       };
-
     # mkHome = host: system:
     #   home-manager.lib.homeManagerConfiguration {
     #     pkgs = nixpkgs.legacyPackages.${system};
@@ -43,7 +42,6 @@
     #   };
   in {
     formatter = forEachPkgs (pkgs: pkgs.alejandra);
-
 
     #packages = forEachPkgs (pkgs: import ./pkgs {inherit pkgs;});
 

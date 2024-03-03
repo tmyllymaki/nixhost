@@ -1,6 +1,6 @@
 {config, ...}: let
-  port = 53214;
-  virtualHost = "paperless.myllymaki.dev";
+  # port = 53214;
+  # virtualHost = "paperless.myllymaki.dev";
 in {
   services.paperless = {
     enable = true;

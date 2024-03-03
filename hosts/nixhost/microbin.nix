@@ -1,8 +1,4 @@
-{
-  config,
-  ...
-}:
-{
+{config, ...}: {
   services.microbin = {
     enable = true;
     dataDir = "/srv/microbin";
@@ -19,9 +15,9 @@
   };
 
   services.caddy.virtualHosts."sp.myllymaki.dev:80".extraConfig = ''
-    reverse_proxy http://127.0.0.1:9345  
+    reverse_proxy http://127.0.0.1:9345
   '';
-  
+
   users = {
     users.microbin = {
       isSystemUser = true;

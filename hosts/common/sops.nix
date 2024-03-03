@@ -14,7 +14,7 @@ in {
   sops = {
     age.sshKeyPaths = map getKeyPath keys;
   };
-  
+
   environment.persistence."/nix/persist" = {
     directories = [
       {

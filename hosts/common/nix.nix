@@ -5,7 +5,7 @@
 }: let
   flakes = lib.filterAttrs (_name: value: value ? outputs) inputs;
   nixRegistry = lib.mapAttrs (_name: v: {flake = v;}) flakes;
-in { 
+in {
   nix = {
     settings = {
       trusted-users = ["root" "@wheel"];
