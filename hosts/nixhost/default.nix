@@ -75,19 +75,4 @@ in {
       };
     };
   };
-
-  /*
-  services.paperless = {
-    enable = true;
-    address = "0.0.0.0";
-    port = 58080;
-    dataDir = "/srv/paperless/data";
-    mediaDir = "/srv/paperless/media";
-    settings = {
-      PAPERLESS_OCR_LANGUAGE = "fin+eng";
-      PAPERLESS_AUTO_LOGIN_USERNAME = "admin";
-      PAPERLESS_ADMIN_PASSWORD = "admin";
-    };
-  };
-  */
 }
