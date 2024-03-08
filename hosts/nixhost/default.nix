@@ -17,6 +17,7 @@ in {
     ./postgresql.nix
     ./netdata.nix
     ./microbin.nix
+    ./speedtest.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -25,7 +26,11 @@ in {
   networking.firewall.enable = false;
   time.timeZone = "Europe/Helsinki";
 
-  users.users.root.openssh.authorizedKeys.keyFiles = [(fetchKeys "tmyllymaki")];
+  users = {
+    users = {
+      root.openssh.authorizedKeys.keyFiles = [(fetchKeys "tmyllymaki")];
+    };
+  };
 
   services.openssh = {
     enable = true;
