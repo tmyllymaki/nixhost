@@ -7,6 +7,7 @@
     directories = [
       "/etc/nixos"
       "/var/lib/nixos"
+      "/var/lib/containers"
       "/var/lib/systemd/coredump"
       "/var/log"
       "/srv"

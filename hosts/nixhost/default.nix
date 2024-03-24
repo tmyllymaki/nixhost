@@ -53,6 +53,7 @@ in {
   environment.systemPackages = with pkgs; [
     vim
     git
+    podman-compose
   ];
 
   nix.settings.allowed-users = ["root"];
