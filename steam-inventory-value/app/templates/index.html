@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Value</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-4">
+    <div class="max-w-screen-lg mx-auto">
+        <h2 class="text-2xl font-bold mb-4">Latest Inventory</h2>
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full border-collapse border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-4 py-2">Item</th>
+                        <th class="px-4 py-2">Price</th>
+                        <th class="px-4 py-2">Amount</th>
+                        <th class="px-4 py-2">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="inventoryTableBody">
+                    <!-- Table rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+        <h2 class="text-2xl font-bold mb-4 mt-4">Inventory value over time</h2>
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full border-collapse border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-4 py-2">Date</th>
+                        <th class="px-4 py-2">Value</th>
+                    </tr>
+                </thead>
+                <tbody id="timeseriesTableBody">
+                    <!-- Table rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+        <canvas id="inventoryChart" width="800" height="400"></canvas>
+    </div>
+
+
+    <script>
+        fetch('/timeseries')
+            .then(response => response.json())
+            .then(data => {
+                const dates = data.map(item => item.date);
+                const totalValues = data.map(item => item.total_value);
+
+                const ctx = document.getElementById('inventoryChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: 'Total Inventory Value',
+                            data: totalValues,
+                            borderColor: 'blue',
+                            backgroundColor: 'rgba(0, 0, 255, 0.1)'
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Total Value'
+                                },
+                                min: 0,
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                const tableBody = document.getElementById('timeseriesTableBody');
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="border px-4 py-2">${item.date}</td>
+                        <td class="border px-4 py-2">${item.total_value}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+
+        fetch('/inventory')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('inventoryTableBody');
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    const total = Math.round(item.price * item.amount * 100) / 100;
+                    row.innerHTML = `
+                        <td class="border px-4 py-2">${item.item}</td>
+                        <td class="border px-4 py-2">${item.price}</td>
+                        <td class="border px-4 py-2">${item.amount}</td>
+                        <td class="border px-4 py-2">${total}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+    </script>
+</body>
+
+</html>

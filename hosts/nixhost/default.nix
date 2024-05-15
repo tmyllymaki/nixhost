@@ -18,11 +18,12 @@ in {
     ./netdata.nix
     ./microbin.nix
     ./speedtest.nix
+    ./steam-inventory-value.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
 
-  networking.hostName = "nix";
+  networking.hostName = "nixhost";
   networking.firewall.enable = false;
   time.timeZone = "Europe/Helsinki";
 
@@ -54,6 +55,7 @@ in {
     vim
     git
     podman-compose
+    rsync
   ];
 
   nix.settings.allowed-users = ["root"];

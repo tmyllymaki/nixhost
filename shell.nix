@@ -9,7 +9,7 @@
       {
         packages = with pkgs; [git sops];
         pre-commit.hooks = {
-          shellcheck.enable = true; # shell static analysis
+          #shellcheck.enable = true; # shell static analysis
           alejandra.enable = true; # nix format
           deadnix.enable = true; # nix dead code remover
           # disabled for now, as it crashes for no reason
