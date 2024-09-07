@@ -4,7 +4,7 @@ https PUT https://montuga.com/api/inventories/76561198102246528/730 > inventory.
 
 echo '"item","price","amount"' > inventory.csv
 
-jq -r '.items | .[] | select(.marketable == 1) | {name: .assets.name, sell_price: .assets.sell_price_ts_24h, count: .amount} | map(tostring) | @csv' < inventory.json >> inventory.csv
+jq -r '.items | .[] | select(.common.marketable == 1) | {name: .common.name, sell_price: .common.sell_price_ts_24h, count: .amount} | map(tostring) | @csv' < inventory.json >> inventory.csv
 
 sqlite3 inventory.sqlite <<EOF
 CREATE TABLE IF NOT EXISTS inventory (
